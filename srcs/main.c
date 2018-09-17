@@ -21,11 +21,11 @@ int				print_dir(char *name, t_flags *flags)
 	if (files == NULL)
 		return (-1);
 	sort(&files, flags);
-	if (flags->R == 1)
+	if (flags->rec == 1)
 		print_recursive(files, flags);
 	else
 		print_everything(files, flags);
-	while (files != NULL && flags->R != 1)
+	while (files != NULL && flags->rec != 1)
 	{
 		temp = files->next;
 		free_file(files);

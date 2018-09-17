@@ -15,7 +15,7 @@
 static void		init_flags(t_flags *flags)
 {
 	flags->l = 0;
-	flags->R = 0;
+	flags->rec = 0;
 	flags->a = 0;
 	flags->r = 0;
 	flags->t = 0;
@@ -38,7 +38,7 @@ t_flags			*get_flags(int ac, char **av)
 			if (av[i][j] == 'l')
 				flags->l = 1;
 			if (av[i][j] == 'R')
-				flags->R = 1;
+				flags->rec = 1;
 			if (av[i][j] == 'a')
 				flags->a = 1;
 			if (av[i][j] == 'r')
