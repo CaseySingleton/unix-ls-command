@@ -6,7 +6,7 @@
 /*   By: csinglet <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 23:50:09 by csinglet          #+#    #+#             */
-/*   Updated: 2018/09/03 23:50:09 by csinglet         ###   ########.fr       */
+/*   Updated: 2018/09/17 16:29:13 by csinglet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,23 +67,29 @@ int					print_dir(char *name, t_flags *flags);
 */
 
 t_flags				*get_flags(int argc, char **argv);
-char				*get_file_path(char *dir, char *item);
 
 /*
 **	utils.c
 */
 
-void				get_stats(t_file *file, char *file_path);
-char				*get_permissions(const char *file_path);
-int					compare_time(t_file *f1, t_file *f2);
 
 /*
 **	list_functions.c
 */
 
-t_file				*get_all_files(char *name);
+t_file				*new_file_link(void);
+void				file_add_end(t_file **afile, t_file *addition);
 void				swap_noodles(t_file **prev, t_file **n1, t_file **n2,
 					t_file **head);
+
+/*
+**	file_info.c
+*/
+
+void				get_stats(t_file *file, char *file_path);
+char				*get_permissions(const char *file_path);
+char				*get_file_path(char *dir, char *file);
+t_file				*get_all_files(char *name);
 
 /*
 **	manage_file.c
@@ -99,6 +105,7 @@ t_offsets			*offsets_init(void);
 
 void				alpha_sort(t_file **files, int rev);
 void				time_sort(t_file **files, int rev);
+int					compare_time(t_file *f1, t_file *f2);
 void				sort(t_file **files, t_flags *flags);
 
 /*
@@ -106,7 +113,6 @@ void				sort(t_file **files, t_flags *flags);
 */
 
 int					compare_year(char *year1, char *year2);
-int					get_month_number(char *month);
 int					compare_month(char *m1, char *m2);
 int					compare_day(char *day1, char *day2);
 int					compare_clock_time(char *time1, char *time2);

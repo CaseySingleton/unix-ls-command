@@ -12,7 +12,12 @@
 
 #include "ft_ls.h"
 
-int			compare_year(char *year1, char *year2)
+/*
+**	All functions return a value (1 or -1) depending on if one parameter
+**	is larger or smaller than the other. If equal 0 is returned
+*/
+
+int				compare_year(char *year1, char *year2)
 {
 	int		y1;
 	int		y2;
@@ -24,7 +29,12 @@ int			compare_year(char *year1, char *year2)
 	return ((y1 < y2) ? 1 : -1);
 }
 
-int			get_month_number(char *month)
+/*
+**	This funciton returns a number value for a specific month
+**	so that a simple int comparison can be used
+*/
+
+static int		get_month_number(char *month)
 {
 	if (ft_strcmp(month, "Jan") == 0)
 		return (1);
@@ -53,7 +63,7 @@ int			get_month_number(char *month)
 	return (-1);
 }
 
-int			compare_month(char *m1, char *m2)
+int				compare_month(char *m1, char *m2)
 {
 	int		month1;
 	int		month2;
@@ -65,7 +75,7 @@ int			compare_month(char *m1, char *m2)
 	return ((month1 < month2) ? 1 : -1);
 }
 
-int			compare_day(char *day1, char *day2)
+int				compare_day(char *day1, char *day2)
 {
 	int		d1;
 	int		d2;
@@ -77,7 +87,12 @@ int			compare_day(char *day1, char *day2)
 	return ((d1 > d2) ? 1 : -1);
 }
 
-int			compare_clock_time(char *time1, char *time2)
+/*
+**	I know that ft_strcmp() may have been a better choice than
+**	ft_strsplit() but oh well...
+*/
+
+int				compare_clock_time(char *time1, char *time2)
 {
 	char	**t1;
 	char	**t2;

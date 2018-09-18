@@ -12,6 +12,12 @@
 
 #include "ft_ls.h"
 
+/*
+**	Tries to open a directory using name. If name is in fact a directory
+**	the return of opendir() will be a d_stream object.
+**	If name is not a directory NULL will be returned.
+*/
+
 int				check_dir(char *name)
 {
 	DIR			*d_stream;
@@ -37,6 +43,14 @@ void			check_dir_all(int ac, char **av, int i)
 		i++;
 	}
 }
+
+/*
+**	Manages the semantics of inputting flags
+**
+**	Basically if '--' is entered, it's okay and no flags are run.
+**	However if '--' is followed by any character other than a null terminator
+**	it's considered an error.
+*/
 
 int				manage_errors(int ac, char **av)
 {

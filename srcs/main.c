@@ -12,6 +12,12 @@
 
 #include "ft_ls.h"
 
+/*
+**	This really souldn't be in my main.c file, but I can't put more than 5
+**	functions in my printing.c file. So this is where print_dir() is gonna
+**	live. Thanks norminette!
+*/
+
 int				print_dir(char *name, t_flags *flags)
 {
 	t_file		*files;
@@ -33,6 +39,29 @@ int				print_dir(char *name, t_flags *flags)
 	}
 	return (0);
 }
+
+/*
+**	FLAG DESCRIPTIONS
+**
+**	-l
+**		List in long format. If the output is to a terminal, a total sum for
+**		all the file sizes is output on a line before the long listing.
+**
+**	-R
+**		Recursively list subdirectories encountered.
+**
+**	-a
+**		Include directory entries whose names begin with a dot (.).
+**
+**	-r
+**		Reverse the order of the sort to get reverse lexicographical order or
+**		the oldest enteries first (or largest files last, if combined with sort
+**		by size)
+**
+**	-t
+**		Sort by time modified (most recently modified first) before sorting the
+**		operands by lexicographical order.
+*/
 
 static void		ft_ls(int argc, char **argv, t_flags *flags)
 {
@@ -60,29 +89,6 @@ static void		ft_ls(int argc, char **argv, t_flags *flags)
 		i++;
 	}
 }
-
-/*
-**	FLAG DESCRIPTIONS
-**
-**	-l
-**		List in long format. If the output is to a terminal, a total sum for
-**		all the file sizes is output on a line before the long listing.
-**
-**	-R
-**		Recursively list subdirectories encountered.
-**
-**	-a
-**		Include directory entries whose names begin with a dot (.).
-**
-**	-r
-**		Reverse the order of the sort to get reverse lexicographical order or
-**		the oldest enteries first (or largest files last, if combined with sort
-**		by size)
-**
-**	-t
-**		Sort by time modified (most recently modified first) before sorting the
-**		operands by lexicographical order.
-*/
 
 int				main(int argc, char *argv[])
 {

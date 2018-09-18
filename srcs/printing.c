@@ -26,6 +26,11 @@
 ** Jor Jor Binks~"
 */
 
+/*
+**	The above was done by one of my friends. While it may not be professional
+**	I have chosen to leave it in
+*/
+
 void			print_file_info(t_file *file, t_offsets *offsets)
 {
 	ft_putstr(file->permissions);
@@ -46,6 +51,15 @@ void			print_file_info(t_file *file, t_offsets *offsets)
 	ft_putchar(' ');
 }
 
+/*
+**	Prints information of a single given file.
+**
+**	If the -a flag was used then hidden directories are shown.
+**	If the -l flag was used then print_file_info() is called to print
+**	  stats about the file as well.
+**	Finally if the file is a directory the name is printed in cyan
+*/
+
 void			print_file(t_file *file, t_flags *flags, t_offsets *offsets)
 {
 	if (file == NULL)
@@ -65,6 +79,17 @@ void			print_file(t_file *file, t_flags *flags, t_offsets *offsets)
 		ft_putchar('\n');
 	}
 }
+
+/*
+**	When the -l flag is used 'total (num)' is displayed before any
+**	other info. num is the total number of 512 byte blocks used by
+**	all files/directories in the current directory.
+**
+**	Basically it's the size of all of the files rounded up to the
+**	nearest 512th(?) then divided by 512
+**	Remember if you take up 1 byte of a 512 byte block that entire
+**	block is considered used
+*/
 
 void			print_total_size(t_file *files, t_flags *flags)
 {
@@ -87,6 +112,13 @@ void			print_total_size(t_file *files, t_flags *flags)
 	ft_putnbr(total);
 	ft_putchar('\n');
 }
+
+/*
+**	Prints info about all files inside of a directory
+**
+**	Currently I have not created ft_printf() so all of my
+**	padding is calculated in the first while loop
+*/
 
 void			print_everything(t_file *files, t_flags *flags)
 {
@@ -116,6 +148,17 @@ void			print_everything(t_file *files, t_flags *flags)
 	}
 	free(offsets);
 }
+
+/*
+**	Prints recursivly all directories and sub directories
+**
+**	Prints everything about a directory using print_everything()
+**	Then iterates through all items in the current directory
+**	  If the given item is a directory
+**		Information is gathered on the directory using
+**		get_all_files() and is then put back into print_recursive()
+**	Once finished, everything gets freed!
+*/
 
 void			print_recursive(t_file *files, t_flags *flags)
 {

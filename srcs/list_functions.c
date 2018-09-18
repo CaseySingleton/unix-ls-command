@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-static t_file		*new_file_link(void)
+t_file				*new_file_link(void)
 {
 	t_file			*new;
 
@@ -22,7 +22,11 @@ static t_file		*new_file_link(void)
 	return (new);
 }
 
-static void			file_add_end(t_file **afile, t_file *addition)
+/*
+**	Appending to the end of a list is so nice
+*/
+
+void				file_add_end(t_file **afile, t_file *addition)
 {
 	t_file			*temp;
 
@@ -37,34 +41,11 @@ static void			file_add_end(t_file **afile, t_file *addition)
 	temp->next = addition;
 }
 
-static t_file		*get_file_info(char *name, struct dirent *cur)
-{
-	t_file			*file;
-
-	file = new_file_link();
-	file->file_path = get_file_path(name, cur->d_name);
-	file->name = ft_strdup(cur->d_name);
-	file->permissions = get_permissions(file->file_path);
-	get_stats(file, file->file_path);
-	return (file);
-}
-
-t_file				*get_all_files(char *name)
-{
-	DIR				*d_stream;
-	struct dirent	*cur;
-	t_file			*files;
-
-	files = NULL;
-	d_stream = opendir(name);
-	if (d_stream == NULL)
-		return (NULL);
-	while ((cur = readdir(d_stream)))
-		file_add_end(&files, get_file_info(name, cur));
-	closedir(d_stream);
-	free(cur);
-	return (files);
-}
+/*
+**	Swaps the position of two nodes
+**
+**	ie. list: 1 2 3 4 5 >> swap 2 and 3 >> list: 1 3 2 4 5
+*/
 
 void				swap_noodles(t_file **prev, t_file **n1, t_file **n2,
 					t_file **head)
