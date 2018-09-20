@@ -30,17 +30,40 @@ int				check_dir(char *name)
 	return (0);
 }
 
-void			check_dir_all(int ac, char **av, int i)
+int				check_file(char *name)
 {
-	while (i < ac)
+	struct stat		file_stats;
+
+	if (lstat(name, &file_stats) < 0)
+		return (-1);
+	return (0);
+}
+
+/*
+**	For this function, can use t_file * and copy_node() and then
+*/
+
+void			check_dir_all(int ac, char **av, int start, t_flags *flags)
+{
+	int			i;
+
+	i = start;
+	if (flags->r == 1)
 	{
-		if (check_dir(av[i]) == -1)
+		while (ft_strchr(av[i], '-') == 0)
+			i--;
+		if (ft_strchr(av[i], '-') != 0)
+			i++;
+	}
+	while (i < ac && i > -1)
+	{
+		if (check_dir(av[i]) == -1 && check_file(av[i]) == -1)
 		{
 			ft_putstr("ft_ls: ");
 			ft_putstr(av[i]);
 			ft_putstr(": No such file or directory\n");
 		}
-		i++;
+		(flags->r == 1) ? i++ : i--;
 	}
 }
 
@@ -60,6 +83,11 @@ int				manage_errors(int ac, char **av)
 	while (i != ac && av[i][0] == '-')
 	{
 		if (av[i][0] == '-' && av[i][1] == '-' && av[i][2] != '\0')
+		{
+			ft_putstr("illegal option -- -\nusage: ./ft_ls [-Ralrt]\n");
+			return (-1);
+		}
+		if (av[i][0] == '-' && ft_strchr(&(av[i][1]), '-'))
 		{
 			ft_putstr("illegal option -- -\nusage: ./ft_ls [-Ralrt]\n");
 			return (-1);

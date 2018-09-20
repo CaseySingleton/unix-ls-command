@@ -17,7 +17,8 @@ CFLAGS			= -Wall -Werror -Wextra
 FLAGS			= $(CFLAGS) $(PFLAGS)
 
 FILES			= error_checks.c file_info.c list_functions.c main.c \
-				  manage_file.c manage_flags.c printing.c sorting.c time.c
+				  manage_file.c manage_flags.c printing.c printing_2.c \
+				  sorting.c time.c
 
 SRC				= $(addprefix srcs/, $(FILES))
 OBJ				= $(addprefix build/, $(FILES:.c=.o))

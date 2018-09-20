@@ -33,6 +33,7 @@ typedef struct		s_flags
 	int				a;
 	int				r;
 	int				t;
+	int				not_a_dir;
 }					t_flags;
 
 typedef struct		s_file
@@ -78,6 +79,7 @@ t_flags				*get_flags(int argc, char **argv);
 */
 
 t_file				*new_file_link(void);
+t_file				*copy_node(t_file *master);
 void				file_add_end(t_file **afile, t_file *addition);
 void				swap_noodles(t_file **prev, t_file **n1, t_file **n2,
 					t_file **head);
@@ -89,6 +91,7 @@ void				swap_noodles(t_file **prev, t_file **n1, t_file **n2,
 void				get_stats(t_file *file, char *file_path);
 char				*get_permissions(const char *file_path);
 char				*get_file_path(char *dir, char *file);
+t_file				*get_file_info(char *name, struct dirent *cur);
 t_file				*get_all_files(char *name);
 
 /*
@@ -121,18 +124,29 @@ int					compare_clock_time(char *time1, char *time2);
 **	printfing.c
 */
 
-void				print_file(t_file *file, t_flags *flags, t_offsets
+void				print_item(t_file *item, t_flags *flags, t_offsets
 					*offsets);
 void				print_everything(t_file *files, t_flags *flags);
 void				print_recursive(t_file *files, t_flags *flags);
 void				print_file_info(t_file *file, t_offsets *offsets);
 
 /*
+**	printing_2.c
+*/
+
+int					print_dir(char *name, t_flags *flags);
+void				print_dirs(char **av, int ac, int start, t_flags *flags);
+int					print_file(char *name, t_flags *flags);
+void				print_files(char **av, int ac, int start, t_flags *flags);
+
+/*
 **	error_checks.c
 */
 
 int					check_dir(char *name);
-void				check_dir_all(int ac, char **av, int i);
+int					check_file(char *name);
+void				check_dir_all(int ac, char **av, int start,
+					t_flags *flags);
 int					manage_errors(int ac, char **av);
 
 #endif

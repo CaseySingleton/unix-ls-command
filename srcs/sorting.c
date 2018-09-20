@@ -113,7 +113,6 @@ int				compare_time(t_file *f1, t_file *f2)
 	return (0);
 }
 
-
 void			sort(t_file **files, t_flags *flags)
 {
 	if (flags->t == 1)

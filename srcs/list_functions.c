@@ -22,6 +22,31 @@ t_file				*new_file_link(void)
 	return (new);
 }
 
+t_file				*copy_node(t_file *master)
+{
+	t_file			*copy;
+	int				i;
+
+	i = 0;
+	while (master->split_time[i] != NULL)
+		i++;
+	copy = new_file_link();
+	if (!(copy->split_time = (char **)malloc(sizeof(char *) * (i + 1))))
+		return (NULL);
+	i = -1;
+	while (master->split_time[++i] != NULL)
+		copy->split_time[i] = ft_strdup(master->split_time[i]);
+	copy->name = ft_strdup(master->name);
+	copy->file_path = ft_strdup(master->name);
+	copy->dir_flag = master->dir_flag;
+	copy->permissions = ft_strdup(master->permissions);
+	copy->links = master->links;
+	copy->user_name = ft_strdup(master->user_name);
+	copy->group_name = ft_strdup(master->group_name);
+	copy->file_size = master->file_size;
+	return (copy);
+}
+
 /*
 **	Appending to the end of a list is so nice
 */

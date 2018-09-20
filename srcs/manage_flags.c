@@ -19,6 +19,7 @@ static void		init_flags(t_flags *flags)
 	flags->a = 0;
 	flags->r = 0;
 	flags->t = 0;
+	flags->not_a_dir = 0;
 }
 
 t_flags			*get_flags(int ac, char **av)

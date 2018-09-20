@@ -13,34 +13,6 @@
 #include "ft_ls.h"
 
 /*
-**	This really souldn't be in my main.c file, but I can't put more than 5
-**	functions in my printing.c file. So this is where print_dir() is gonna
-**	live. Thanks norminette!
-*/
-
-int				print_dir(char *name, t_flags *flags)
-{
-	t_file		*files;
-	t_file		*temp;
-
-	files = get_all_files(name);
-	if (files == NULL)
-		return (-1);
-	sort(&files, flags);
-	if (flags->rec == 1)
-		print_recursive(files, flags);
-	else
-		print_everything(files, flags);
-	while (files != NULL && flags->rec != 1)
-	{
-		temp = files->next;
-		free_file(files);
-		files = temp;
-	}
-	return (0);
-}
-
-/*
 **	FLAG DESCRIPTIONS
 **
 **	-l
@@ -63,31 +35,34 @@ int				print_dir(char *name, t_flags *flags)
 **		operands by lexicographical order.
 */
 
+/*
+**	Check for any erorrs
+**	  if any errors are found, print error message and exit the program
+**
+**	Check if no arguments besides flags are given
+**	  if the above is true, use the current directory as an argument
+**
+**	Sort arguments by ascii order
+**
+**	Check for any invalid directories given as arguments
+**	  if invalid, print an error message and continue the program
+**
+**	If any files were given as an argument print
+*/
+
 static void		ft_ls(int argc, char **argv, t_flags *flags)
 {
-	int			i;
+	int			start;
 
-	i = 1;
-	if ((i = manage_errors(argc, argv)) == -1)
+	start = 1;
+	if ((start = manage_errors(argc, argv)) == -1)
 		exit(-1);
-	if (i == argc)
+	if (start == argc)
 		print_dir(".", flags);
-	check_dir_all(argc, argv, i);
-	ft_sort_list_ascii(&argv, i, argc);
-	if (i + 1 == argc)
-		print_dir(argv[i++], flags);
-	while (i < argc)
-	{
-		if (check_dir(argv[i]) != -1)
-		{
-			ft_putstr(argv[i]);
-			ft_putstr(":\n");
-		}
-		print_dir(argv[i], flags);
-		if (i + 1 < argc && check_dir(argv[i + 1]) != -1)
-			ft_putstr("\n");
-		i++;
-	}
+	ft_sort_list_ascii(&argv, start, argc);
+	check_dir_all(argc, argv, start, flags);
+	print_files(argv, argc, start, flags);
+	print_dirs(argv, argc, start, flags);
 }
 
 int				main(int argc, char *argv[])

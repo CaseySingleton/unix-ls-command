@@ -60,22 +60,22 @@ void			print_file_info(t_file *file, t_offsets *offsets)
 **	Finally if the file is a directory the name is printed in cyan
 */
 
-void			print_file(t_file *file, t_flags *flags, t_offsets *offsets)
+void			print_item(t_file *item, t_flags *flags, t_offsets *offsets)
 {
-	if (file == NULL)
+	if (item == NULL)
 		return ;
-	if (file->name[0] != '.' || flags->a == 1)
+	if (item->name[0] != '.' || flags->a == 1)
 	{
 		if (flags->l == 1)
-			print_file_info(file, offsets);
-		if (check_dir(file->name) == 0)
+			print_file_info(item, offsets);
+		if (check_dir(item->name) == 0)
 		{
 			ft_putstr("\x1b[36m");
-			ft_putstr(file->name);
+			ft_putstr(item->name);
 			ft_putstr("\x1b[0m");
 		}
 		else
-			ft_putstr(file->name);
+			ft_putstr(item->name);
 		ft_putchar('\n');
 	}
 }
@@ -128,7 +128,7 @@ void			print_everything(t_file *files, t_flags *flags)
 	cur_file = files;
 	cur_file = files;
 	offsets = offsets_init();
-	if (flags->l == 1)
+	if (flags->l == 1 && flags->not_a_dir == 0)
 		print_total_size(cur_file, flags);
 	while (cur_file)
 	{
@@ -143,7 +143,7 @@ void			print_everything(t_file *files, t_flags *flags)
 	cur_file = files;
 	while (cur_file != NULL)
 	{
-		print_file(cur_file, flags, offsets);
+		print_item(cur_file, flags, offsets);
 		cur_file = cur_file->next;
 	}
 	free(offsets);

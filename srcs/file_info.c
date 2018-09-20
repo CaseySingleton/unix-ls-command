@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-char			*get_permissions(const char *file_path)
+char				*get_permissions(const char *file_path)
 {
 	struct stat		file_stats;
 	char			*permissions;
@@ -40,7 +40,7 @@ char			*get_permissions(const char *file_path)
 **	Gets all of the information displayed by the -l flag
 */
 
-void			get_stats(t_file *file, char *file_path)
+void				get_stats(t_file *file, char *file_path)
 {
 	struct stat		d_info;
 	struct passwd	*p_info;
@@ -57,10 +57,10 @@ void			get_stats(t_file *file, char *file_path)
 	file->file_size = d_info.st_size;
 }
 
-char			*get_file_path(char *dir, char *file)
+char				*get_file_path(char *dir, char *file)
 {
-	char		*temp;
-	char		*file_path;
+	char			*temp;
+	char			*file_path;
 
 	temp = NULL;
 	file_path = NULL;
@@ -85,7 +85,7 @@ char			*get_file_path(char *dir, char *file)
 **	  information is parsed and then saved into a t_file variable
 */
 
-static t_file		*get_file_info(char *name, struct dirent *cur)
+t_file				*get_file_info(char *name, struct dirent *cur)
 {
 	t_file			*file;
 
